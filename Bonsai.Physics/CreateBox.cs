@@ -35,6 +35,7 @@ namespace Bonsai.Physics
             {
                 var box = new Box(space, LengthX, LengthY, LengthZ);
                 box.Body = body;
+                box.Tag = new GeomMetadata(Material);
                 return Observable.Return(box).Concat(Observable.Never(box)).Finally(box.Dispose);
             }).Merge();
         }
@@ -45,6 +46,7 @@ namespace Bonsai.Physics
             {
                 var box = new Box(space, LengthX, LengthY, LengthZ);
                 box.Body = body;
+                box.Tag = new GeomMetadata(Material);
                 return Observable.Return(box).Concat(Observable.Never(box)).Finally(box.Dispose);
             }).Merge();
         }
