@@ -3,6 +3,7 @@ using Ode.Net.Collision;
 using Ode.Net.Joints;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics
 {
+    [DefaultProperty("CollisionHandlers")]
     public class CreateHashSpace : Source<HashSpace>
     {
         readonly CollisionHandlerCollection collisionHandlers = new CollisionHandlerCollection();
