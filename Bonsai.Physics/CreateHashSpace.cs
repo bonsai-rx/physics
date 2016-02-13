@@ -14,9 +14,17 @@ namespace Bonsai.Physics
     [DefaultProperty("CollisionHandlers")]
     public class CreateHashSpace : Source<HashSpace>
     {
-        readonly CollisionHandlerCollection collisionHandlers = new CollisionHandlerCollection();
+        readonly CollisionHandlerCollection collisionHandlers;
+
+        public CreateHashSpace()
+        {
+            collisionHandlers = new CollisionHandlerCollection();
+            ExcludeConnected = true;
+        }
 
         public int MaxContacts { get; set; }
+
+        public bool ExcludeConnected { get; set; }
 
         public CollisionHandlerCollection CollisionHandlers
         {
@@ -58,9 +66,13 @@ namespace Bonsai.Physics
                             : null;
                         if (collisionHandler != null)
                         {
-                            var collisionSurface = collisionHandler.CollisionSurface;
                             if (body1 != null || body2 != null)
                             {
+                                if (ExcludeConnected && body1 != null && body2 != null &&
+                                    Body.AreConnectedExcluding(body1, body2, JointType.Contact))
+                                    return;
+
+                                var collisionSurface = collisionHandler.CollisionSurface;
                                 var world = body1 != null ? body1.World : body2.World;
                                 for (int i = 0; i < numContacts; i++)
                                 {
