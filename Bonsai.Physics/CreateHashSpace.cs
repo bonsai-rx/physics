@@ -53,19 +53,23 @@ namespace Bonsai.Physics
                         var metadata1 = g1.Tag as GeomMetadata;
                         var metadata2 = g2.Tag as GeomMetadata;
                         var numContacts = Geom.Collide(g1, g2, contacts);
-                        var collisionSurface = (metadata1 != null && metadata2 != null)
-                            ? collisionHandlers[new CollisionHandlerKey(metadata1.Material, metadata2.Material)].CollisionSurface
-                            : default(SurfaceParameters);
-                        if (body1 != null || body2 != null)
+                        var collisionHandler = (metadata1 != null && metadata2 != null)
+                            ? collisionHandlers[new CollisionHandlerKey(metadata1.Material, metadata2.Material)]
+                            : null;
+                        if (collisionHandler != null)
                         {
-                            var world = body1 != null ? body1.World : body2.World;
-                            for (int i = 0; i < numContacts; i++)
+                            var collisionSurface = collisionHandler.CollisionSurface;
+                            if (body1 != null || body2 != null)
                             {
-                                var contactInfo = new ContactInfo();
-                                contactInfo.Geometry = contacts[i];
-                                contactInfo.Surface = collisionSurface;
-                                var contact = new Contact(world, contactInfo, collisionGroup);
-                                contact.Attach(body1, body2);
+                                var world = body1 != null ? body1.World : body2.World;
+                                for (int i = 0; i < numContacts; i++)
+                                {
+                                    var contactInfo = new ContactInfo();
+                                    contactInfo.Geometry = contacts[i];
+                                    contactInfo.Surface = collisionSurface;
+                                    var contact = new Contact(world, contactInfo, collisionGroup);
+                                    contact.Attach(body1, body2);
+                                }
                             }
                         }
                     });
