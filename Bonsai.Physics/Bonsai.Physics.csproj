@@ -66,12 +66,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BodyTransform.cs" />
+    <Compile Include="CollisionHandler.cs" />
+    <Compile Include="CollisionHandlerCollection.cs" />
+    <Compile Include="CollisionHandlerKey.cs" />
     <Compile Include="CreateBoxMass.cs" />
     <Compile Include="CreateBox.cs" />
     <Compile Include="CreateHashSpace.cs" />
     <Compile Include="CreateBody.cs" />
     <Compile Include="CreateWorld.cs" />
+    <Compile Include="GeomMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SurfaceParametersConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bonsai.Physics.nuspec" />

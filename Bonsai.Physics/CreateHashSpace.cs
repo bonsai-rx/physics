@@ -12,7 +12,14 @@ namespace Bonsai.Physics
 {
     public class CreateHashSpace : Source<HashSpace>
     {
+        readonly CollisionHandlerCollection collisionHandlers = new CollisionHandlerCollection();
+
         public int MaxContacts { get; set; }
+
+        public CollisionHandlerCollection CollisionHandlers
+        {
+            get { return collisionHandlers; }
+        }
 
         public override IObservable<HashSpace> Generate()
         {
@@ -41,7 +48,12 @@ namespace Bonsai.Physics
                     {
                         var body1 = g1.Body;
                         var body2 = g2.Body;
+                        var metadata1 = g1.Tag as GeomMetadata;
+                        var metadata2 = g2.Tag as GeomMetadata;
                         var numContacts = Geom.Collide(g1, g2, contacts);
+                        var collisionSurface = (metadata1 != null && metadata2 != null)
+                            ? collisionHandlers[new CollisionHandlerKey(metadata1.Material, metadata2.Material)].CollisionSurface
+                            : default(SurfaceParameters);
                         if (body1 != null || body2 != null)
                         {
                             var world = body1 != null ? body1.World : body2.World;
@@ -49,6 +61,7 @@ namespace Bonsai.Physics
                             {
                                 var contactInfo = new ContactInfo();
                                 contactInfo.Geometry = contacts[i];
+                                contactInfo.Surface = collisionSurface;
                                 var contact = new Contact(world, contactInfo, collisionGroup);
                                 contact.Attach(body1, body2);
                             }

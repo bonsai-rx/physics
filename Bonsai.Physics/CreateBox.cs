@@ -17,11 +17,14 @@ namespace Bonsai.Physics
 
         public double LengthZ { get; set; }
 
+        public string Material { get; set; }
+
         public override IObservable<Box> Process(IObservable<Space> source)
         {
             return source.SelectMany(space =>
             {
                 var box = new Box(space, LengthX, LengthY, LengthZ);
+                box.Tag = new GeomMetadata(Material);
                 return Observable.Return(box).Concat(Observable.Never(box)).Finally(box.Dispose);
             });
         }
