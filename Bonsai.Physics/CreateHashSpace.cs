@@ -61,6 +61,8 @@ namespace Bonsai.Physics
                         var metadata1 = g1.Tag as GeomMetadata;
                         var metadata2 = g2.Tag as GeomMetadata;
                         var numContacts = Geom.Collide(g1, g2, contacts);
+                        if (metadata1 != null) metadata1.OnCollision(g1, g2, contacts, numContacts);
+                        if (metadata2 != null) metadata2.OnCollision(g2, g1, contacts, numContacts);
                         var collisionHandler = (metadata1 != null && metadata2 != null)
                             ? collisionHandlers[new CollisionHandlerKey(metadata1.Material, metadata2.Material)]
                             : null;

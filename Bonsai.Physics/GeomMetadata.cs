@@ -18,15 +18,15 @@ namespace Bonsai.Physics
 
         public event CollisionEventHandler Collision;
 
-        internal void OnCollision(Geom g1, Geom g2, ContactGeom[] contacts)
+        internal void OnCollision(Geom g1, Geom g2, ContactGeom[] contacts, int length)
         {
             var handler = Collision;
             if (handler != null)
             {
-                handler(g1, g2, contacts);
+                handler(g1, g2, contacts, length);
             }
         }
     }
 
-    delegate void CollisionEventHandler(Geom g1, Geom g2, ContactGeom[] contacts);
+    delegate void CollisionEventHandler(Geom g1, Geom g2, ContactGeom[] contacts, int length);
 }
