@@ -69,6 +69,9 @@
     <Compile Include="CollisionHandler.cs" />
     <Compile Include="CollisionHandlerCollection.cs" />
     <Compile Include="CollisionHandlerKey.cs" />
+    <Compile Include="CreateSphereMass.cs" />
+    <Compile Include="CreateSphere.cs" />
+    <Compile Include="CreateJointFeedback.cs" />
     <Compile Include="CreateBoxMass.cs" />
     <Compile Include="CreateBox.cs" />
     <Compile Include="CreateHashSpace.cs" />
