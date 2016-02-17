@@ -73,6 +73,7 @@
     <Compile Include="CreateBox.cs" />
     <Compile Include="CreateHashSpace.cs" />
     <Compile Include="CreateBody.cs" />
+    <Compile Include="CreateHinge.cs" />
     <Compile Include="CreateWorld.cs" />
     <Compile Include="GeomCollision.cs" />
     <Compile Include="GeomCollisionEventArgs.cs" />
