@@ -47,6 +47,7 @@ namespace Bonsai.Physics
         {
             return Observable.Defer(() =>
             {
+                var handlers = collisionHandlers.ToDictionary(h => new CollisionHandlerKey(h.Material1, h.Material2));
                 var contacts = new ContactGeom[MaxContacts];
                 var collisionGroup = new JointGroup();
                 var space = new HashSpace();
@@ -63,10 +64,10 @@ namespace Bonsai.Physics
                         var numContacts = Geom.Collide(g1, g2, contacts);
                         if (metadata1 != null) metadata1.OnCollision(g1, g2, contacts, numContacts);
                         if (metadata2 != null) metadata2.OnCollision(g2, g1, contacts, numContacts);
-                        var collisionHandler = (metadata1 != null && metadata2 != null)
-                            ? collisionHandlers[new CollisionHandlerKey(metadata1.Material, metadata2.Material)]
-                            : null;
-                        if (collisionHandler != null)
+
+                        CollisionHandler collisionHandler;
+                        if (metadata1 != null && metadata2 != null &&
+                            handlers.TryGetValue(new CollisionHandlerKey(metadata1.Material, metadata2.Material), out collisionHandler))
                         {
                             if (body1 != null || body2 != null)
                             {
