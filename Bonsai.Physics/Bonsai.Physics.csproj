@@ -69,6 +69,7 @@
     <Compile Include="CollisionHandler.cs" />
     <Compile Include="CollisionHandlerCollection.cs" />
     <Compile Include="CollisionHandlerKey.cs" />
+    <Compile Include="CreateGeom.cs" />
     <Compile Include="CreateSphereMass.cs" />
     <Compile Include="CreateSphere.cs" />
     <Compile Include="CreateJointFeedback.cs" />
