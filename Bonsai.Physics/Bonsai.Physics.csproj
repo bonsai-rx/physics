@@ -69,8 +69,10 @@
     <Compile Include="Collision\CollisionHandler.cs" />
     <Compile Include="Collision\CollisionHandlerCollection.cs" />
     <Compile Include="Collision\CollisionHandlerKey.cs" />
+    <Compile Include="Collision\CreateCylinder.cs" />
     <Compile Include="Collision\CreateGeom.cs" />
     <Compile Include="Collision\CreatePlane.cs" />
+    <Compile Include="CreateCylinderMass.cs" />
     <Compile Include="CreateSphereMass.cs" />
     <Compile Include="Collision\CreateSphere.cs" />
     <Compile Include="Joints\CreateJointFeedback.cs" />
