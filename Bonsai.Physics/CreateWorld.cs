@@ -1,6 +1,7 @@
 ﻿using Ode.Net;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -16,11 +17,8 @@ namespace Bonsai.Physics
             Erp = 0.2;
         }
 
-        public double GravityX { get; set; }
-
-        public double GravityY { get; set; }
-
-        public double GravityZ { get; set; }
+        [TypeConverter(typeof(NumericAggregateConverter))]
+        public Vector3 Gravity { get; set; }
 
         public double StepSize { get; set; }
 
@@ -35,7 +33,7 @@ namespace Bonsai.Physics
                 var world = new World();
                 world.Cfm = Cfm;
                 world.Erp = Erp;
-                world.Gravity = new Vector3(GravityX, GravityY, GravityZ);
+                world.Gravity = Gravity;
                 return Observable.Return(world)
                                  .Concat(Observable.Never(world))
                                  .Finally(world.Dispose);
@@ -50,7 +48,7 @@ namespace Bonsai.Physics
                 var world = new World();
                 world.Cfm = Cfm;
                 world.Erp = Erp;
-                world.Gravity = new Vector3(GravityX, GravityY, GravityZ);
+                world.Gravity = Gravity;
                 return Observable.Return(world).Concat(source.Select(xs =>
                 {
                     world.QuickStep(StepSize);

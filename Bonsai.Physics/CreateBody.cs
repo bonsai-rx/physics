@@ -1,6 +1,7 @@
 ﻿using Ode.Net;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -10,18 +11,24 @@ namespace Bonsai.Physics
 {
     public class CreateBody : Combinator<World, Body>
     {
-        public double PositionX { get; set; }
+        public CreateBody()
+        {
+            Orientation = Quaternion.Identity;
+        }
 
-        public double PositionY { get; set; }
+        [TypeConverter(typeof(NumericAggregateConverter))]
+        public Vector3 Position { get; set; }
 
-        public double PositionZ { get; set; }
+        [TypeConverter(typeof(NumericAggregateConverter))]
+        public Quaternion Orientation { get; set; }
 
         public override IObservable<Body> Process(IObservable<World> source)
         {
             return source.SelectMany(world =>
             {
                 var body = new Body(world);
-                body.Position = new Vector3(PositionX, PositionY, PositionZ);
+                body.Position = Position;
+                body.Quaternion = Orientation;
                 return Observable.Return(body).Concat(Observable.Never(body)).Finally(body.Dispose);
             });
         }
