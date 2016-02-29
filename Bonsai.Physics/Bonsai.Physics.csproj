@@ -70,6 +70,7 @@
     <Compile Include="Collision\CollisionHandlerCollection.cs" />
     <Compile Include="Collision\CollisionHandlerKey.cs" />
     <Compile Include="Collision\CreateGeom.cs" />
+    <Compile Include="Collision\CreatePlane.cs" />
     <Compile Include="CreateSphereMass.cs" />
     <Compile Include="Collision\CreateSphere.cs" />
     <Compile Include="Joints\CreateJointFeedback.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Collision\GeomCollision.cs" />
     <Compile Include="Collision\GeomCollisionEventArgs.cs" />
     <Compile Include="Collision\GeomMetadata.cs" />
+    <Compile Include="Joints\CreatePlane2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Collision\SurfaceParametersConverter.cs" />
   </ItemGroup>
