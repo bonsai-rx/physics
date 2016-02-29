@@ -75,6 +75,7 @@
     <Compile Include="CreateCylinderMass.cs" />
     <Compile Include="CreateSphereMass.cs" />
     <Compile Include="Collision\CreateSphere.cs" />
+    <Compile Include="Joints\CreateJoint.cs" />
     <Compile Include="Joints\CreateJointFeedback.cs" />
     <Compile Include="CreateBoxMass.cs" />
     <Compile Include="Collision\CreateBox.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Collision\GeomCollisionEventArgs.cs" />
     <Compile Include="Collision\GeomMetadata.cs" />
     <Compile Include="Joints\CreatePlane2D.cs" />
+    <Compile Include="Joints\LimitMotorParameters.cs" />
     <Compile Include="NumericAggregateConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Collision\SurfaceParametersConverter.cs" />
