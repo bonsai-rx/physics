@@ -7,7 +7,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bonsai.Physics
+namespace Bonsai.Physics.Joints
 {
     [Combinator]
     public class CreateJointFeedback
