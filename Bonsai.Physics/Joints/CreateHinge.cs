@@ -2,6 +2,7 @@
 using Ode.Net.Joints;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -9,17 +10,28 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics.Joints
 {
-    [Combinator]
-    public class CreateHinge
+    public class CreateHinge : CreateJoint<Hinge>
     {
-        public IObservable<Hinge> Process(IObservable<Body> body1, IObservable<Body> body2)
+        public CreateHinge()
         {
-            return body1.CombineLatest(body2, (b1, b2) =>
-            {
-                var hinge = new Hinge(b1.World);
-                hinge.Attach(b1, b2);
-                return Observable.Return(hinge).Concat(Observable.Never(hinge)).Finally(hinge.Dispose);
-            }).Merge();
+            Axis = Vector3.UnitX;
+            LimitMotor = new LimitMotorParameters();
+        }
+
+        [TypeConverter(typeof(NumericAggregateConverter))]
+        public Vector3 Axis { get; set; }
+
+        public LimitMotorParameters LimitMotor { get; set; }
+
+        protected override Hinge CreateJointObject(World world)
+        {
+            return new Hinge(world);
+        }
+
+        protected override void ConfigureJointObject(Hinge joint)
+        {
+            joint.Axis = Axis;
+            SetLimitMotor(joint.LimitMotor, LimitMotor);
         }
     }
 }
