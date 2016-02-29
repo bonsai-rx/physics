@@ -10,7 +10,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bonsai.Physics
+namespace Bonsai.Physics.Collision
 {
     public class GeomCollision : Combinator<Geom, EventPattern<Geom, GeomCollisionEventArgs>>
     {

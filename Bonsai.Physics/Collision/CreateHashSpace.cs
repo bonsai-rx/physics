@@ -9,7 +9,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bonsai.Physics
+namespace Bonsai.Physics.Collision
 {
     [DefaultProperty("CollisionHandlers")]
     public class CreateHashSpace : Source<HashSpace>

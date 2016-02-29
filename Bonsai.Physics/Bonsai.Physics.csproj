@@ -66,24 +66,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BodyTransform.cs" />
-    <Compile Include="CollisionHandler.cs" />
-    <Compile Include="CollisionHandlerCollection.cs" />
-    <Compile Include="CollisionHandlerKey.cs" />
-    <Compile Include="CreateGeom.cs" />
+    <Compile Include="Collision\CollisionHandler.cs" />
+    <Compile Include="Collision\CollisionHandlerCollection.cs" />
+    <Compile Include="Collision\CollisionHandlerKey.cs" />
+    <Compile Include="Collision\CreateGeom.cs" />
     <Compile Include="CreateSphereMass.cs" />
-    <Compile Include="CreateSphere.cs" />
-    <Compile Include="CreateJointFeedback.cs" />
+    <Compile Include="Collision\CreateSphere.cs" />
+    <Compile Include="Joints\CreateJointFeedback.cs" />
     <Compile Include="CreateBoxMass.cs" />
-    <Compile Include="CreateBox.cs" />
-    <Compile Include="CreateHashSpace.cs" />
+    <Compile Include="Collision\CreateBox.cs" />
+    <Compile Include="Collision\CreateHashSpace.cs" />
     <Compile Include="CreateBody.cs" />
-    <Compile Include="CreateHinge.cs" />
+    <Compile Include="Joints\CreateHinge.cs" />
     <Compile Include="CreateWorld.cs" />
-    <Compile Include="GeomCollision.cs" />
-    <Compile Include="GeomCollisionEventArgs.cs" />
-    <Compile Include="GeomMetadata.cs" />
+    <Compile Include="Collision\GeomCollision.cs" />
+    <Compile Include="Collision\GeomCollisionEventArgs.cs" />
+    <Compile Include="Collision\GeomMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SurfaceParametersConverter.cs" />
+    <Compile Include="Collision\SurfaceParametersConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bonsai.Physics.nuspec" />

@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bonsai.Physics
+namespace Bonsai.Physics.Collision
 {
     class SurfaceParametersConverter : TypeConverter
     {
