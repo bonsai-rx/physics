@@ -14,9 +14,31 @@ namespace Bonsai.Physics
     {
         FieldInfo[] fieldCache;
 
+        static bool IsNullable(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+        }
+
+        static Type GetUnderlyingType(ITypeDescriptorContext context)
+        {
+            var type = context.PropertyDescriptor.PropertyType;
+            if (IsNullable(type))
+            {
+                type = type.GetGenericArguments()[0];
+            }
+
+            return type;
+        }
+
         FieldInfo[] GetFields(ITypeDescriptorContext context)
         {
-            return fieldCache ?? (fieldCache = context.PropertyDescriptor.PropertyType.GetFields(BindingFlags.Instance | BindingFlags.Public));
+            var type = GetUnderlyingType(context);
+            return GetFields(type);
+        }
+
+        FieldInfo[] GetFields(Type type)
+        {
+            return fieldCache ?? (fieldCache = type.GetFields(BindingFlags.Instance | BindingFlags.Public));
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -33,11 +55,12 @@ namespace Bonsai.Physics
                 valueString = valueString.Trim();
                 if (!string.IsNullOrEmpty(valueString))
                 {
-                    var fields = GetFields(context);
+                    var type = GetUnderlyingType(context);
+                    var fields = GetFields(type);
                     var fieldValues = valueString.Split(new[] { culture.TextInfo.ListSeparator }, StringSplitOptions.RemoveEmptyEntries);
                     if (fieldValues.Length == fields.Length)
                     {
-                        var instance = Activator.CreateInstance(context.PropertyDescriptor.PropertyType);
+                        var instance = Activator.CreateInstance(type);
                         for (int i = 0; i < fields.Length; i++)
                         {
                             var fieldValue = Convert.ChangeType(fieldValues[i], fields[i].FieldType, culture);
@@ -46,6 +69,10 @@ namespace Bonsai.Physics
 
                         return instance;
                     }
+                }
+                else if (IsNullable(context.PropertyDescriptor.PropertyType))
+                {
+                    return null;
                 }
             }
 
@@ -65,8 +92,9 @@ namespace Bonsai.Physics
 
         public override object CreateInstance(ITypeDescriptorContext context, IDictionary propertyValues)
         {
-            var fields = GetFields(context);
-            var instance = Activator.CreateInstance(context.PropertyDescriptor.PropertyType);
+            var type = GetUnderlyingType(context);
+            var fields = GetFields(type);
+            var instance = Activator.CreateInstance(type);
             foreach (var field in fields)
             {
                 var value = Convert.ChangeType(propertyValues[field.Name], field.FieldType);
