@@ -21,6 +21,9 @@ namespace Bonsai.Physics.Joints
         [TypeConverter(typeof(NumericAggregateConverter))]
         public Vector3 Axis { get; set; }
 
+        [TypeConverter(typeof(NumericAggregateConverter))]
+        public Vector3? Anchor { get; set; }
+
         public LimitMotorParameters LimitMotor { get; set; }
 
         protected override Hinge CreateJointObject(World world)
@@ -31,6 +34,8 @@ namespace Bonsai.Physics.Joints
         protected override void ConfigureJointObject(Hinge joint)
         {
             joint.Axis = Axis;
+            var anchor = Anchor;
+            if (anchor.HasValue) joint.Anchor = anchor.Value;
             SetLimitMotor(joint.LimitMotor, LimitMotor);
         }
     }
