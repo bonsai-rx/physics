@@ -72,6 +72,7 @@
     <Compile Include="Collision\CreateCylinder.cs" />
     <Compile Include="Collision\CreateGeom.cs" />
     <Compile Include="Collision\CreatePlane.cs" />
+    <Compile Include="Collision\CreateTriMesh.cs" />
     <Compile Include="CreateCylinderMass.cs" />
     <Compile Include="CreateSphereMass.cs" />
     <Compile Include="Collision\CreateSphere.cs" />
