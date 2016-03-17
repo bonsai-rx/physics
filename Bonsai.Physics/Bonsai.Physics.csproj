@@ -76,6 +76,8 @@
     <Compile Include="CreateCylinderMass.cs" />
     <Compile Include="CreateSphereMass.cs" />
     <Compile Include="Collision\CreateSphere.cs" />
+    <Compile Include="Joints\CreateBall.cs" />
+    <Compile Include="Joints\CreateHinge2.cs" />
     <Compile Include="Joints\CreateJoint.cs" />
     <Compile Include="Joints\CreateJointFeedback.cs" />
     <Compile Include="CreateBoxMass.cs" />
