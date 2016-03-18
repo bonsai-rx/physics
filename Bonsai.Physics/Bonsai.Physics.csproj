@@ -71,6 +71,7 @@
     <Compile Include="Collision\CollisionHandlerKey.cs" />
     <Compile Include="Collision\CreateCylinder.cs" />
     <Compile Include="Collision\CreateGeom.cs" />
+    <Compile Include="Collision\CreateHeightfield.cs" />
     <Compile Include="Collision\CreatePlane.cs" />
     <Compile Include="Collision\CreateTriMesh.cs" />
     <Compile Include="CreateCylinderMass.cs" />
