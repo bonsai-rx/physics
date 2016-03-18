@@ -2,6 +2,7 @@
 using Ode.Net.Collision;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -17,6 +18,12 @@ namespace Bonsai.Physics.Collision
 
         public string Material { get; set; }
 
+        [TypeConverter(typeof(NumericAggregateConverter))]
+        public Vector3? Position { get; set; }
+
+        [TypeConverter(typeof(NumericAggregateConverter))]
+        public Quaternion? Orientation { get; set; }
+
         protected abstract TGeom CreateGeometryObject(Space space);
 
         private void ConfigureGeometryObject(TGeom geom)
@@ -24,6 +31,22 @@ namespace Bonsai.Physics.Collision
             geom.CategoryBits = CategoryBits.GetValueOrDefault(-1);
             geom.CollideBits = CollideBits.GetValueOrDefault(-1);
             geom.Tag = new GeomMetadata(Material);
+
+            var position = Position;
+            var orientation = Orientation;
+            if (position.HasValue || orientation.HasValue)
+            {
+                if (geom.Body != null)
+                {
+                    geom.OffsetPosition = position.GetValueOrDefault();
+                    geom.OffsetQuaternion = orientation.HasValue ? orientation.Value : Quaternion.Identity;
+                }
+                else
+                {
+                    geom.Position = position.GetValueOrDefault();
+                    geom.Quaternion = orientation.HasValue ? orientation.Value : Quaternion.Identity;
+                }
+            }
         }
 
         public override IObservable<TGeom> Process(IObservable<Space> source)
@@ -41,8 +64,8 @@ namespace Bonsai.Physics.Collision
             return spaces.CombineLatest(bodies, (space, body) =>
             {
                 var geom = CreateGeometryObject(space);
-                ConfigureGeometryObject(geom);
                 geom.Body = body;
+                ConfigureGeometryObject(geom);
                 return Observable.Return(geom).Concat(Observable.Never(geom)).Finally(geom.Dispose);
             }).Merge();
         }
@@ -52,8 +75,8 @@ namespace Bonsai.Physics.Collision
             return bodies.CombineLatest(spaces, (body, space) =>
             {
                 var geom = CreateGeometryObject(space);
-                ConfigureGeometryObject(geom);
                 geom.Body = body;
+                ConfigureGeometryObject(geom);
                 return Observable.Return(geom).Concat(Observable.Never(geom)).Finally(geom.Dispose);
             }).Merge();
         }
