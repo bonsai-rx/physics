@@ -16,11 +16,11 @@ namespace Bonsai.Physics
 
         public DirectionAxis Direction { get; set; }
 
-        public double TotalMass { get; set; }
+        public double Density { get; set; }
 
         public override IObservable<Body> Process(IObservable<Body> source)
         {
-            return source.Do(body => body.Mass = Mass.CreateCylinderTotal(TotalMass, Direction, Radius, Length));
+            return source.Do(body => body.Mass = Mass.CreateCylinder(Density, Direction, Radius, Length));
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics
 {
-    public class CreateBoxMass : Combinator<Body, Body>
+    public class CreateBoxMassTotal : Combinator<Body, Body>
     {
         public double LengthX { get; set; }
 
@@ -16,11 +16,11 @@ namespace Bonsai.Physics
 
         public double LengthZ { get; set; }
 
-        public double Density { get; set; }
+        public double TotalMass { get; set; }
 
         public override IObservable<Body> Process(IObservable<Body> source)
         {
-            return source.Do(body => body.Mass = Mass.CreateBox(Density, LengthX, LengthY, LengthZ));
+            return source.Do(body => body.Mass = Mass.CreateBoxTotal(TotalMass, LengthX, LengthY, LengthZ));
         }
     }
 }
