@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AxisAnchor.cs" />
     <Compile Include="BodyTransform.cs" />
     <Compile Include="Collision\CollisionHandler.cs" />
     <Compile Include="Collision\CollisionHandlerCollection.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Collision\CreateHeightfield.cs" />
     <Compile Include="Collision\CreatePlane.cs" />
     <Compile Include="Collision\CreateTriMesh.cs" />
+    <Compile Include="CreateAxisAnchor.cs" />
     <Compile Include="CreateCylinderMass.cs" />
     <Compile Include="CreateSphereMass.cs" />
     <Compile Include="Collision\CreateSphere.cs" />
