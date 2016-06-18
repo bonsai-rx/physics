@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics
 {
-    public class CreateTriMeshMass : Combinator<TriMesh, TriMesh>
+    public class CreateTriMeshMassTotal : Combinator<TriMesh, TriMesh>
     {
-        public double Density { get; set; }
+        public double TotalMass { get; set; }
 
         public override IObservable<TriMesh> Process(IObservable<TriMesh> source)
         {
@@ -23,7 +23,7 @@ namespace Bonsai.Physics
                     throw new InvalidOperationException("The triangle mesh must be associated with a rigid body.");
                 }
 
-                body.Mass = Mass.CreateTriMesh(Density, triMesh);
+                body.Mass = Mass.CreateTriMeshTotal(TotalMass, triMesh);
             });
         }
     }

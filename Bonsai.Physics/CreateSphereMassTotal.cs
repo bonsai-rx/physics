@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics
 {
-    public class CreateSphereMass : Combinator<Body, Body>
+    public class CreateSphereMassTotal : Combinator<Body, Body>
     {
         public double Radius { get; set; }
 
-        public double Density { get; set; }
+        public double TotalMass { get; set; }
 
         public override IObservable<Body> Process(IObservable<Body> source)
         {
-            return source.Do(body => body.Mass = Mass.CreateSphere(Density, Radius));
+            return source.Do(body => body.Mass = Mass.CreateSphereTotal(TotalMass, Radius));
         }
     }
 }
