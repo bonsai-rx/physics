@@ -12,6 +12,13 @@ namespace Bonsai.Physics.Collision
 {
     public abstract class CreateGeom<TGeom> : Combinator<Space, TGeom> where TGeom : Geom
     {
+        protected CreateGeom()
+        {
+            Enabled = true;
+        }
+
+        public bool Enabled { get; set; }
+
         public int? CategoryBits { get; set; }
 
         public int? CollideBits { get; set; }
@@ -28,6 +35,7 @@ namespace Bonsai.Physics.Collision
 
         private void ConfigureGeometryObject(TGeom geom)
         {
+            geom.Enabled = Enabled;
             geom.CategoryBits = CategoryBits.GetValueOrDefault(-1);
             geom.CollideBits = CollideBits.GetValueOrDefault(-1);
             geom.Tag = new GeomMetadata(Material);
