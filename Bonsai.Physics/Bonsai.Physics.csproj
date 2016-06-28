@@ -70,6 +70,7 @@
     <Compile Include="Collision\CollisionHandler.cs" />
     <Compile Include="Collision\CollisionHandlerCollection.cs" />
     <Compile Include="Collision\CollisionHandlerKey.cs" />
+    <Compile Include="Collision\CreateRay.cs" />
     <Compile Include="Collision\CreateCylinder.cs" />
     <Compile Include="Collision\CreateGeom.cs" />
     <Compile Include="Collision\CreateHeightfield.cs" />
