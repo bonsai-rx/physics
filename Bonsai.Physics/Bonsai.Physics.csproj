@@ -66,7 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AxisAnchor.cs" />
-    <Compile Include="BodyTransform.cs" />
+    <Compile Include="GetTransform.cs" />
     <Compile Include="Collision\CollisionHandler.cs" />
     <Compile Include="Collision\CollisionHandlerCollection.cs" />
     <Compile Include="Collision\CollisionHandlerKey.cs" />
@@ -79,7 +79,6 @@
     <Compile Include="Collision\CreateTriMesh.cs" />
     <Compile Include="CreateCapsuleMassTotal.cs" />
     <Compile Include="CreateCapsuleMass.cs" />
-    <Compile Include="GeomTransform.cs" />
     <Compile Include="CreateTriMeshMassTotal.cs" />
     <Compile Include="CreateSphereMassTotal.cs" />
     <Compile Include="CreateCylinderMassTotal.cs" />
