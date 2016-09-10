@@ -10,9 +10,24 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics
 {
-    public class GeomTransform : Combinator<Geom, Matrix4>
+    [Combinator]
+    [WorkflowElementCategory(ElementCategory.Transform)]
+    public class GetTransform
     {
-        public override IObservable<Matrix4> Process(IObservable<Geom> source)
+        public IObservable<Matrix4> Process(IObservable<Body> source)
+        {
+            return source.Select(body =>
+            {
+                Ode.Net.Vector3 position;
+                Ode.Net.Quaternion orientation;
+                body.GetPosition(out position);
+                body.GetQuaternion(out orientation);
+                return Matrix4.CreateFromQuaternion(new OpenTK.Quaternion((float)orientation.X, (float)orientation.Y, (float)orientation.Z, (float)orientation.W)) *
+                    Matrix4.CreateTranslation((float)position.X, (float)position.Y, (float)position.Z);
+            });
+        }
+
+        public IObservable<Matrix4> Process(IObservable<Geom> source)
         {
             return source.Select(geom =>
             {
