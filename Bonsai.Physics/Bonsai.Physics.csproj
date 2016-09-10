@@ -77,6 +77,8 @@
     <Compile Include="Collision\CreateHeightfield.cs" />
     <Compile Include="Collision\CreatePlane.cs" />
     <Compile Include="Collision\CreateTriMesh.cs" />
+    <Compile Include="CreateCapsuleMassTotal.cs" />
+    <Compile Include="CreateCapsuleMass.cs" />
     <Compile Include="GeomTransform.cs" />
     <Compile Include="CreateTriMeshMassTotal.cs" />
     <Compile Include="CreateSphereMassTotal.cs" />
