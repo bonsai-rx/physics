@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics.Joints
 {
+    [Description("Creates a hinge-2 joint.")]
     public class CreateHinge2 : CreateJoint<Hinge2>
     {
         public CreateHinge2()
@@ -20,13 +21,17 @@ namespace Bonsai.Physics.Joints
         }
 
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The axis for the first hinge, in world coordinates.")]
         public Vector3 Axis1 { get; set; }
 
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The axis for the second hinge, in world coordinates.")]
         public Vector3 Axis2 { get; set; }
 
+        [Description("The limit and motor parameters of the first hinge.")]
         public LimitMotorParameters LimitMotor1 { get; set; }
 
+        [Description("The limit and motor parameters of the second hinge.")]
         public LimitMotorParameters LimitMotor2 { get; set; }
 
         protected override Hinge2 CreateJointObject(World world)

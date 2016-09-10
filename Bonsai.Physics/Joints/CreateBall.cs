@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics.Joints
 {
+    [Description("Creates a ball joint.")]
     public class CreateBall : CreateJoint<Ball>
     {
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The anchor position of the ball joint, in world coordinates.")]
         public Vector3 Anchor { get; set; }
 
+        [Description("The optional constraint force mixing factor for the ball joint.")]
         public double? Cfm { get; set; }
 
+        [Description("The optional error reduction parameter for the ball joint.")]
         public double? Erp { get; set; }
 
         protected override Ball CreateJointObject(World world)
