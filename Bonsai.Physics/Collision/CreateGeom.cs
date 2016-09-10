@@ -17,18 +17,24 @@ namespace Bonsai.Physics.Collision
             Enabled = true;
         }
 
+        [Description("Indicates whether the geometry object is active to intersect other objects.")]
         public bool Enabled { get; set; }
 
+        [Description("The category bitfield of the geometry object.")]
         public int? CategoryBits { get; set; }
 
+        [Description("The collision bitfield for the geometry object indicating with which categories the object should intersect.")]
         public int? CollideBits { get; set; }
 
+        [Description("The name of the collision material used to generate contacts for the geometry object.")]
         public string Material { get; set; }
 
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The position of the geometry object relative to its body (or absolute if the geometry is static).")]
         public Vector3? Position { get; set; }
 
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The orientation of the geometry object relative to its body (or absolute if the geometry is static).")]
         public Quaternion? Orientation { get; set; }
 
         protected abstract TGeom CreateGeometryObject(Space space);
