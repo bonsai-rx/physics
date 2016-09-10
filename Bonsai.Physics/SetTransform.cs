@@ -12,12 +12,15 @@ namespace Bonsai.Physics
 {
     [Combinator]
     [WorkflowElementCategory(ElementCategory.Sink)]
+    [Description("Updates the frame of reference of a rigid body or geometry object.")]
     public class SetTransform
     {
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The optional new position of the rigid body or geometry object.")]
         public Vector3? Position { get; set; }
 
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The optional new orientation of the rigid body or geometry object.")]
         public Quaternion? Orientation { get; set; }
 
         public IObservable<Body> Process(IObservable<Body> source)

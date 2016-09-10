@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics
 {
+    [Description("Creates and optionally updates a physics simulation world for rigid bodies and joints.")]
     public class CreateWorld : Source<World>
     {
         public CreateWorld()
@@ -18,12 +19,16 @@ namespace Bonsai.Physics
         }
 
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The world's global gravity vector.")]
         public Vector3 Gravity { get; set; }
 
+        [Description("The number of seconds the simulation should advance in each step.")]
         public double StepSize { get; set; }
 
+        [Description("The global constraint force mixing value.")]
         public double Cfm { get; set; }
 
+        [Description("The global error reduction parameter, controlling how much error correction is performed in each step.")]
         public double Erp { get; set; }
 
         public override IObservable<World> Generate()
