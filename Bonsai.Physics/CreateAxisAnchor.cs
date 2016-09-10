@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics
 {
+    [Description("Creates a representation of a joint axis at a specified anchor.")]
     public class CreateAxisAnchor : Transform<Matrix4, AxisAnchor>
     {
         Vector3 initialAxis;
@@ -20,6 +21,7 @@ namespace Bonsai.Physics
         }
 
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The axis of the joint.")]
         public Ode.Net.Vector3 Axis
         {
             get { return new Ode.Net.Vector3(initialAxis.X, initialAxis.Y, initialAxis.Z); }
@@ -27,6 +29,7 @@ namespace Bonsai.Physics
         }
 
         [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The anchor of the joint.")]
         public Ode.Net.Vector3 Anchor
         {
             get { return new Ode.Net.Vector3(initialAnchor.X, initialAnchor.Y, initialAnchor.Z); }

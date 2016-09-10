@@ -3,6 +3,7 @@ using Ode.Net.Collision;
 using OpenTK;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Bonsai.Physics
 {
     [Combinator]
     [WorkflowElementCategory(ElementCategory.Transform)]
+    [Description("Returns the transform matrix representing the frame of reference of a rigid body or geometry object.")]
     public class GetTransform
     {
         public IObservable<Matrix4> Process(IObservable<Body> source)
