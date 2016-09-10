@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace Bonsai.Physics.Collision
 {
     [DefaultProperty("CollisionHandlers")]
+    [Description("Creates and optionally updates a hash collision space for geometry objects.")]
     public class CreateHashSpace : Source<HashSpace>
     {
         readonly CollisionHandlerCollection collisionHandlers;
@@ -22,10 +23,14 @@ namespace Bonsai.Physics.Collision
             ExcludeConnected = true;
         }
 
+        [Description("The maximum number of contacts generated per collision pair.")]
         public int MaxContacts { get; set; }
 
+        [Description("Indicates whether to exclude contacts between connected bodies.")]
         public bool ExcludeConnected { get; set; }
 
+        [Description("The set of collision handlers used to generate contact constraints between intersecting bodies.")]
+        [Editor("Bonsai.Design.DescriptiveCollectionEditor, Bonsai.Design", "System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
         public CollisionHandlerCollection CollisionHandlers
         {
             get { return collisionHandlers; }

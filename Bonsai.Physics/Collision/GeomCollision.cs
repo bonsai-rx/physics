@@ -3,6 +3,7 @@ using Ode.Net.Collision;
 using OpenTK;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
@@ -12,10 +13,12 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics.Collision
 {
+    [Description("Returns a sequence of collision events whenever the specified geometry intersects other objects.")]
     public class GeomCollision : Combinator<Geom, EventPattern<Geom, GeomCollisionEventArgs>>
     {
         static readonly ContactGeom[] EmptyContacts = new ContactGeom[0];
 
+        [Description("Indicates whether contact geometry should be copied and included in the event data.")]
         public bool IncludeContacts { get; set; }
 
         public override IObservable<EventPattern<Geom, GeomCollisionEventArgs>> Process(IObservable<Geom> source)

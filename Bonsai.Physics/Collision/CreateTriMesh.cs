@@ -9,9 +9,11 @@ using System.Xml.Serialization;
 
 namespace Bonsai.Physics.Collision
 {
+    [Description("Creates a triangle mesh with the specified data.")]
     public class CreateTriMesh : CreateGeom<TriMesh>
     {
         [XmlIgnore]
+        [Description("The triangle mesh data object.")]
         public TriMeshData Data { get; set; }
 
         protected override TriMesh CreateGeometryObject(Space space)
