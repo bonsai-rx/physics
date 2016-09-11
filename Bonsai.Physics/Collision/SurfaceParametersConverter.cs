@@ -12,6 +12,29 @@ namespace Bonsai.Physics.Collision
     class SurfaceParametersConverter : TypeConverter
     {
         FieldInfo[] fieldCache;
+        Dictionary<string, Attribute[]> attributeCache;
+
+        Dictionary<string, Attribute[]> GetFieldAttributes()
+        {
+            return attributeCache ?? (attributeCache = new Dictionary<string, Attribute[]>
+            {
+                { "Bounce", new[] { new DescriptionAttribute("The restitution parameter for the surface, between 0 and 1.") } },
+                { "BounceVelocity", new[] { new DescriptionAttribute("Specifies the minimum incoming velocity necessary for bounce.") } },
+                { "Mode", new[] { new DescriptionAttribute("Specifies the active contact modes for the surface.") } },
+                { "Motion1", new[] { new DescriptionAttribute("Specifies the surface velocity in friction direction 1.") } },
+                { "Motion2", new[] { new DescriptionAttribute("Specifies the surface velocity in friction direction 2.") } },
+                { "MotionN", new[] { new DescriptionAttribute("Specifies the surface velocity in the direction of the contact normal.") } },
+                { "Mu", new[] { new DescriptionAttribute("Specifies the Coulomb friction coefficient of the surface, between 0 and infinity (∞).") } },
+                { "Mu2", new[] { new DescriptionAttribute("Specifies the optional Coulomb friction coefficient for friction direction 2.") } },
+                { "Rho", new[] { new DescriptionAttribute("Specifies the rolling friction coefficient around direction 1.") } },
+                { "Rho2", new[] { new DescriptionAttribute("Specifies the rolling friction coefficient around direction 2.") } },
+                { "RhoN", new[] { new DescriptionAttribute("Specifies the rolling friction coefficient around the normal direction.") } },
+                { "Slip1", new[] { new DescriptionAttribute("Specifies the coefficient of force-dependent-slip (FDS) for friction direction 1.") } },
+                { "Slip2", new[] { new DescriptionAttribute("Specifies the coefficient of force-dependent-slip (FDS) for friction direction 2.") } },
+                { "SoftCfm", new[] { new DescriptionAttribute("Specifies the contact constraint force mixing parameter.") } },
+                { "SoftErp", new[] { new DescriptionAttribute("Specifies the contact error reduction parameter.") } }
+            });
+        }
 
         FieldInfo[] GetFields(ITypeDescriptorContext context)
         {
@@ -47,8 +70,9 @@ namespace Bonsai.Physics.Collision
             {
                 var valueType = value.GetType();
                 var fields = GetFields(context);
+                var fieldAttributes = GetFieldAttributes();
                 var fieldNames = fields.Select(field => field.Name).ToArray();
-                var fieldProperties = fields.Select(field => new FieldPropertyDescriptor(valueType, field, context)).ToArray();
+                var fieldProperties = fields.Select(field => new FieldPropertyDescriptor(valueType, field, context, fieldAttributes[field.Name])).ToArray();
                 return new PropertyDescriptorCollection(fieldProperties).Sort(fieldNames);
             }
             return base.GetProperties(context, value, attributes);
@@ -59,8 +83,8 @@ namespace Bonsai.Physics.Collision
             FieldInfo field;
             ITypeDescriptorContext structContext;
 
-            public FieldPropertyDescriptor(Type componentType, FieldInfo fieldInfo, ITypeDescriptorContext context)
-                : base(componentType, fieldInfo.Name, fieldInfo.FieldType)
+            public FieldPropertyDescriptor(Type componentType, FieldInfo fieldInfo, ITypeDescriptorContext context, Attribute[] attributes)
+                : base(componentType, fieldInfo.Name, fieldInfo.FieldType, attributes)
             {
                 field = fieldInfo;
                 structContext = context;
