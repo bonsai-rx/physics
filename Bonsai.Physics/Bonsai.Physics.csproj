@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddForce.cs" />
     <Compile Include="AxisAnchor.cs" />
     <Compile Include="GetTransform.cs" />
     <Compile Include="Collision\CollisionHandler.cs" />
