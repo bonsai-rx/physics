@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="AddForce.cs" />
     <Compile Include="AxisAnchor.cs" />
+    <Compile Include="AddTorque.cs" />
     <Compile Include="GetTransform.cs" />
     <Compile Include="Collision\CollisionHandler.cs" />
     <Compile Include="Collision\CollisionHandlerCollection.cs" />
