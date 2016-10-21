@@ -33,7 +33,7 @@ namespace Bonsai.Physics
 
         public override IObservable<World> Generate()
         {
-            return Observable.Defer(() =>
+            return Observable.Using(OdeManager.ReserveEngine, engine => Observable.Defer(() =>
             {
                 var world = new World();
                 world.Cfm = Cfm;
@@ -42,12 +42,12 @@ namespace Bonsai.Physics
                 return Observable.Return(world)
                                  .Concat(Observable.Never(world))
                                  .Finally(world.Dispose);
-            });
+            }));
         }
 
         public IObservable<World> Generate<TSource>(IObservable<TSource> source)
         {
-            return Observable.Defer(() =>
+            return Observable.Using(OdeManager.ReserveEngine, engine => Observable.Defer(() =>
             {
                 Ode.Net.Engine.Init();
                 var world = new World();
@@ -60,7 +60,7 @@ namespace Bonsai.Physics
                     return world;
                 }).IgnoreElements())
                 .Finally(world.Dispose);
-            });
+            }));
         }
     }
 }

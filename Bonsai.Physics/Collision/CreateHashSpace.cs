@@ -38,19 +38,19 @@ namespace Bonsai.Physics.Collision
 
         public override IObservable<HashSpace> Generate()
         {
-            return Observable.Defer(() =>
+            return Observable.Using(OdeManager.ReserveEngine, engine => Observable.Defer(() =>
             {
                 var space = new HashSpace();
                 space.Cleanup = false;
                 return Observable.Return(space)
                                  .Concat(Observable.Never(space))
                                  .Finally(space.Dispose);
-            });
+            }));
         }
 
         public IObservable<Space> Generate<TSource>(IObservable<TSource> source)
         {
-            return Observable.Defer(() =>
+            return Observable.Using(OdeManager.ReserveEngine, engine => Observable.Defer(() =>
             {
                 var handlers = collisionHandlers.ToDictionary(h => new CollisionHandlerKey(h.Material1, h.Material2));
                 var contacts = new ContactGeom[MaxContacts];
@@ -102,7 +102,7 @@ namespace Bonsai.Physics.Collision
                     collisionGroup.Clear();
                     space.Dispose();
                 });
-            });
+            }));
         }
     }
 }
