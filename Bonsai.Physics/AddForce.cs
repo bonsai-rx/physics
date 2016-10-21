@@ -1,6 +1,7 @@
 ﻿using Ode.Net;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -8,14 +9,21 @@ using System.Threading.Tasks;
 
 namespace Bonsai.Physics
 {
+    [Description("Adds force to a rigid body applied at some specified position.")]
     public class AddForce : Sink<Body>
     {
+        [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The vector specifying the force to be applied.")]
         public Vector3 Force { get; set; }
 
+        [TypeConverter(typeof(NumericAggregateConverter))]
+        [Description("The optional position at which the force will be applied. If no position is specified, the force is applied at the center of mass.")]
         public Vector3? Position { get; set; }
 
+        [Description("Indicates whether the force vector is provided in relative or absolute coordinates.")]
         public bool RelativeForce { get; set; }
 
+        [Description("Indicates whether the position vector is provided in relative or absolute coordinates.")]
         public bool RelativePosition { get; set; }
 
         public override IObservable<Body> Process(IObservable<Body> source)
