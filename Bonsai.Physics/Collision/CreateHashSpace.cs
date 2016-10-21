@@ -62,11 +62,13 @@ namespace Bonsai.Physics.Collision
                     collisionGroup.Clear();
                     space.Collide((g1, g2) =>
                     {
+                        var numContacts = Geom.Collide(g1, g2, contacts);
+                        if (numContacts == 0) return;
+
                         var body1 = g1.Body;
                         var body2 = g2.Body;
                         var metadata1 = g1.Tag as GeomMetadata;
                         var metadata2 = g2.Tag as GeomMetadata;
-                        var numContacts = Geom.Collide(g1, g2, contacts);
                         if (metadata1 != null) metadata1.OnCollision(g1, g2, contacts, numContacts);
                         if (metadata2 != null) metadata2.OnCollision(g2, g1, contacts, numContacts);
 
