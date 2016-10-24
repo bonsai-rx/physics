@@ -33,15 +33,15 @@ namespace Bonsai.Physics
                 var position = Position;
                 if (RelativeForce)
                 {
-                    if (!position.HasValue) body.AddForce(Force);
-                    else if (RelativePosition) body.AddForceAtRelativePosition(Force, position.Value);
-                    else body.AddForceAtPosition(Force, position.Value);
-                }
-                else
-                {
                     if (!position.HasValue) body.AddRelativeForce(Force);
                     else if (RelativePosition) body.AddRelativeForceAtRelativePosition(Force, position.Value);
                     else body.AddRelativeForceAtPosition(Force, position.Value);
+                }
+                else
+                {
+                    if (!position.HasValue) body.AddForce(Force);
+                    else if (RelativePosition) body.AddForceAtRelativePosition(Force, position.Value);
+                    else body.AddForceAtPosition(Force, position.Value);
                 }
             });
         }
