@@ -16,11 +16,11 @@ namespace Bonsai.Physics.Joints
     {
         public IObservable<Plane2D> Process(IObservable<Body> source)
         {
-            return source.SelectMany(body =>
+            return source.Select(body =>
             {
                 var plane = new Plane2D(body.World);
                 plane.Attach(body);
-                return Observable.Return(plane).Concat(Observable.Never(plane)).Finally(plane.Dispose);
+                return plane;
             });
         }
     }

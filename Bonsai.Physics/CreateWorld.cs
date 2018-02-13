@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bonsai.Physics
 {
-    [Description("Creates and optionally updates a physics simulation world for rigid bodies and joints.")]
+    [Description("Creates a new physics simulation world for rigid bodies and joints.")]
     public class CreateWorld : Source<World>
     {
         public CreateWorld()
@@ -22,9 +23,6 @@ namespace Bonsai.Physics
         [Description("The world's global gravity vector.")]
         public Vector3 Gravity { get; set; }
 
-        [Description("The number of seconds the simulation should advance in each step.")]
-        public double StepSize { get; set; }
-
         [Description("The global constraint force mixing value.")]
         public double Cfm { get; set; }
 
@@ -33,34 +31,21 @@ namespace Bonsai.Physics
 
         public override IObservable<World> Generate()
         {
-            return Observable.Using(OdeManager.ReserveEngine, engine => Observable.Defer(() =>
-            {
-                var world = new World();
-                world.Cfm = Cfm;
-                world.Erp = Erp;
-                world.Gravity = Gravity;
-                return Observable.Return(world)
-                                 .Concat(Observable.Never(world))
-                                 .Finally(world.Dispose);
-            }));
+            return Generate(Observable.Return(Unit.Default));
         }
 
         public IObservable<World> Generate<TSource>(IObservable<TSource> source)
         {
-            return Observable.Using(OdeManager.ReserveEngine, engine => Observable.Defer(() =>
+            return source.Select(xs =>
             {
-                Ode.Net.Engine.Init();
+                Engine.Init();
+                Engine.AllocateDataForThread(AllocateDataFlags.BasicData);
                 var world = new World();
                 world.Cfm = Cfm;
                 world.Erp = Erp;
                 world.Gravity = Gravity;
-                return Observable.Return(world).Concat(source.Select(xs =>
-                {
-                    world.QuickStep(StepSize);
-                    return world;
-                }).IgnoreElements())
-                .Finally(world.Dispose);
-            }));
+                return world;
+            });
         }
     }
 }

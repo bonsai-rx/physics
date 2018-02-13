@@ -42,22 +42,22 @@ namespace Bonsai.Physics.Joints
 
         public override IObservable<TJoint> Process(IObservable<World> source)
         {
-            return source.SelectMany(world =>
+            return source.Select(world =>
             {
                 var joint = CreateJointObject(world);
                 ConfigureJointObject(joint);
-                return Observable.Return(joint).Concat(Observable.Never(joint)).Finally(joint.Dispose);
+                return joint;
             });
         }
 
         public IObservable<TJoint> Process(IObservable<Body> source)
         {
-            return source.SelectMany(body =>
+            return source.Select(body =>
             {
                 var joint = CreateJointObject(body.World);
                 joint.Attach(body, null);
                 ConfigureJointObject(joint);
-                return Observable.Return(joint).Concat(Observable.Never(joint)).Finally(joint.Dispose);
+                return joint;
             });
         }
 
@@ -68,8 +68,8 @@ namespace Bonsai.Physics.Joints
                 var joint = CreateJointObject(b1.World);
                 joint.Attach(b1, b2);
                 ConfigureJointObject(joint);
-                return Observable.Return(joint).Concat(Observable.Never(joint)).Finally(joint.Dispose);
-            }).Merge();
+                return joint;
+            });
         }
     }
 }
