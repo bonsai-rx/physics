@@ -68,6 +68,8 @@
     <Compile Include="AddForce.cs" />
     <Compile Include="AxisAnchor.cs" />
     <Compile Include="AddTorque.cs" />
+    <Compile Include="Collision\CollideGeom.cs" />
+    <Compile Include="Collision\CollideSpace.cs" />
     <Compile Include="GetTransform.cs" />
     <Compile Include="Collision\CollisionHandler.cs" />
     <Compile Include="Collision\CollisionHandlerCollection.cs" />
