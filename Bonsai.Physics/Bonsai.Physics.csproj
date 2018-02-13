@@ -92,6 +92,7 @@
     <Compile Include="CreateSphereMass.cs" />
     <Compile Include="Collision\CreateSphere.cs" />
     <Compile Include="CreateTriMeshMass.cs" />
+    <Compile Include="Joints\CreateAngularMotor.cs" />
     <Compile Include="Joints\CreateBall.cs" />
     <Compile Include="Joints\CreateHinge2.cs" />
     <Compile Include="Joints\CreateJoint.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Collision\GeomCollision.cs" />
     <Compile Include="Collision\GeomCollisionEventArgs.cs" />
     <Compile Include="Collision\GeomMetadata.cs" />
+    <Compile Include="Joints\CreateLinearMotor.cs" />
     <Compile Include="Joints\CreatePlane2D.cs" />
     <Compile Include="Joints\LimitMotorParameters.cs" />
     <Compile Include="NumericAggregateConverter.cs" />
