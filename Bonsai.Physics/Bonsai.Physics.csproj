@@ -112,6 +112,7 @@
     <Compile Include="Collision\SurfaceParametersConverter.cs" />
     <Compile Include="SetTransform.cs" />
     <Compile Include="SimulationStep.cs" />
+    <Compile Include="WorldStep.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bonsai.Physics.nuspec" />
