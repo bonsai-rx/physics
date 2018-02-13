@@ -16,11 +16,11 @@ namespace Bonsai.Physics.Joints
     {
         public IObservable<JointFeedback> Process(IObservable<Joint> source)
         {
-            return source.SelectMany(joint =>
+            return source.Select(joint =>
             {
                 var feedback = new JointFeedback();
                 joint.Feedback = feedback;
-                return Observable.Return(feedback).Concat(Observable.Never(feedback)).Finally(feedback.Dispose);
+                return feedback;
             });
         }
     }

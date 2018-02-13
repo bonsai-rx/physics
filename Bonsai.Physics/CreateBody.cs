@@ -30,13 +30,13 @@ namespace Bonsai.Physics
 
         public override IObservable<Body> Process(IObservable<World> source)
         {
-            return source.SelectMany(world =>
+            return source.Select(world =>
             {
                 var body = new Body(world);
                 body.Position = Position;
                 body.Quaternion = Orientation;
                 body.Kinematic = Kinematic;
-                return Observable.Return(body).Concat(Observable.Never(body)).Finally(body.Dispose);
+                return body;
             });
         }
     }

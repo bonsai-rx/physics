@@ -65,11 +65,11 @@ namespace Bonsai.Physics.Collision
 
         public override IObservable<TGeom> Process(IObservable<Space> source)
         {
-            return source.SelectMany(space =>
+            return source.Select(space =>
             {
                 var geom = CreateGeometryObject(space);
                 ConfigureGeometryObject(geom);
-                return Observable.Return(geom).Concat(Observable.Never(geom)).Finally(geom.Dispose);
+                return geom;
             });
         }
 
@@ -80,8 +80,8 @@ namespace Bonsai.Physics.Collision
                 var geom = CreateGeometryObject(space);
                 geom.Body = body;
                 ConfigureGeometryObject(geom);
-                return Observable.Return(geom).Concat(Observable.Never(geom)).Finally(geom.Dispose);
-            }).Merge();
+                return geom;
+            });
         }
 
         public IObservable<TGeom> Process(IObservable<Body> bodies, IObservable<Space> spaces)
@@ -91,8 +91,8 @@ namespace Bonsai.Physics.Collision
                 var geom = CreateGeometryObject(space);
                 geom.Body = body;
                 ConfigureGeometryObject(geom);
-                return Observable.Return(geom).Concat(Observable.Never(geom)).Finally(geom.Dispose);
-            }).Merge();
+                return geom;
+            });
         }
     }
 }
