@@ -16,10 +16,10 @@ namespace Bonsai.Physics.Collision
     public class CreateHashSpace : Source<Space>
     {
         [Description("The minimum cell size level for the hash space.")]
-        public int MinLevel { get; set; }
+        public int? MinLevel { get; set; }
 
         [Description("The maximum cell size level for the hash space")]
-        public int MaxLevel { get; set; }
+        public int? MaxLevel { get; set; }
 
         public override IObservable<Space> Generate()
         {
@@ -34,8 +34,8 @@ namespace Bonsai.Physics.Collision
                 Engine.AllocateDataForThread(AllocateDataFlags.CollisionData);
                 var space = new HashSpace();
                 space.Cleanup = false;
-                space.MinLevel = MinLevel;
-                space.MaxLevel = MaxLevel;
+                space.MinLevel = MinLevel.GetValueOrDefault(space.MinLevel);
+                space.MaxLevel = MaxLevel.GetValueOrDefault(space.MaxLevel);
                 return space;
             });
         }
